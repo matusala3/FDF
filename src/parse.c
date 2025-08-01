@@ -34,6 +34,7 @@ t_map *parse_file(char *filename)
 		}
 		free(map_data->map);
 		free(map_data);
+		return (NULL);
     }
     return (map_data);
 }
@@ -46,7 +47,7 @@ int get_file_dimensions(char *filename, int *rows, int *cols)
     
 	fd = open(filename, O_RDONLY);
     if (fd < 0)
-        return (1);
+        return (0);
     *rows = 0;
     while ((line = get_next_line(fd)) != NULL)
     {
