@@ -39,11 +39,25 @@ t_map	*parse_file(char *filename)
 	return (map_data);
 }
 
+static int	process_dimension_line(char *line, int *rows, int *cols)
+{
+	int	current_cols;
+
+	if (line[ft_strlen(line) - 1] == '\n')
+		line[ft_strlen(line) - 1] = '\0';
+	current_cols = count_columns(line);
+	if (*rows == 0)
+		*cols = current_cols;
+	else if (current_cols != *cols)
+		return (0);
+	(*rows)++;
+	return (1);
+}
+
 int	get_file_dimensions(char *filename, int *rows, int *cols)
 {
 	int		fd;
 	char	*line;
-	int		current_cols;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -52,18 +66,12 @@ int	get_file_dimensions(char *filename, int *rows, int *cols)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		if (line[ft_strlen(line) - 1] == '\n')
-			line[ft_strlen(line) - 1] = '\0';
-		current_cols = count_columns(line);
-		if (*rows == 0)
-			*cols = current_cols;
-		else if (current_cols != *cols)
+		if (!process_dimension_line(line, rows, cols))
 		{
 			free(line);
 			close(fd);
 			return (0);
 		}
-		(*rows)++;
 		free(line);
 		line = get_next_line(fd);
 	}

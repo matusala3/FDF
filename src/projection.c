@@ -12,12 +12,28 @@
 
 #include "../fdf.h"
 
-void	draw_wireframe(t_graphics *gfx)
+static void	draw_point_connections(t_graphics *gfx, int row, int col)
 {
-	int			row;
-	int			col;
 	t_spoint	p1;
 	t_spoint	p2;
+
+	p1 = project_point(gfx, &gfx->map_data->map[row][col]);
+	if (col + 1 < gfx->map_data->cols)
+	{
+		p2 = project_point(gfx, &gfx->map_data->map[row][col + 1]);
+		draw_line(gfx, p1, p2, gfx->map_data->map[row][col].color);
+	}
+	if (row + 1 < gfx->map_data->rows)
+	{
+		p2 = project_point(gfx, &gfx->map_data->map[row + 1][col]);
+		draw_line(gfx, p1, p2, gfx->map_data->map[row][col].color);
+	}
+}
+
+void	draw_wireframe(t_graphics *gfx)
+{
+	int	row;
+	int	col;
 
 	row = 0;
 	while (row < gfx->map_data->rows)
@@ -25,17 +41,7 @@ void	draw_wireframe(t_graphics *gfx)
 		col = 0;
 		while (col < gfx->map_data->cols)
 		{
-			p1 = project_point(gfx, &gfx->map_data->map[row][col]);
-			if (col + 1 < gfx->map_data->cols)
-			{
-				p2 = project_point(gfx, &gfx->map_data->map[row][col + 1]);
-				draw_line(gfx, p1, p2, gfx->map_data->map[row][col].color);
-			}
-			if (row + 1 < gfx->map_data->rows)
-			{
-				p2 = project_point(gfx, &gfx->map_data->map[row + 1][col]);
-				draw_line(gfx, p1, p2, gfx->map_data->map[row][col].color);
-			}
+			draw_point_connections(gfx, row, col);
 			col++;
 		}
 		row++;
