@@ -36,39 +36,60 @@ int main(int argc, char **argv)
     return (0);
 }
 
-int init_graphics(t_map *map_data)
+static t_graphics	*allocate_graphics_struct(void)
 {
-    t_graphics *gfx;
+	t_graphics	*gfx;
 
 	gfx = malloc(sizeof(t_graphics));
-	if(!gfx)
-		return (0);
-    gfx->mlx_ptr = mlx_init();
-    if (!gfx->mlx_ptr)
-    {
-		free(gfx);
-		return (0);
-	}
-    gfx->win_ptr = mlx_new_window(gfx->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
-	if (!gfx->win_ptr)
+	if (!gfx)
+		return (NULL);
+	gfx->mlx_ptr = mlx_init();
+	if (!gfx->mlx_ptr)
 	{
 		free(gfx);
-		return (0);
+		return (NULL);
 	}
+	return (gfx);
+}
+
+static int	setup_window_and_image(t_graphics *gfx)
+{
+	gfx->win_ptr = mlx_new_window(gfx->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+	if (!gfx->win_ptr)
+		return (0);
 	gfx->img_ptr = mlx_new_image(gfx->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if(!gfx->img_ptr)
+	if (!gfx->img_ptr)
 	{
 		mlx_destroy_window(gfx->mlx_ptr, gfx->win_ptr);
 		mlx_destroy_display(gfx->mlx_ptr);
-		free(gfx);
-		return(0);
+		return (0);
 	}
 	gfx->img_data = mlx_get_data_addr(gfx->img_ptr, &gfx->bits_per_pixel, &gfx->line_length, &gfx->endian);
-	gfx->map_data = map_data;
+	return (1);
+}
+
+static void	setup_hooks_and_run(t_graphics *gfx)
+{
 	mlx_hook(gfx->win_ptr, 2, 1L<<0, handle_keypress, gfx);
 	mlx_hook(gfx->win_ptr, 17, 1L<<17, handle_close, gfx);
 	draw_wireframe(gfx);
 	mlx_loop(gfx->mlx_ptr);
-    return (1);
+}
+
+int init_graphics(t_map *map_data)
+{
+	t_graphics	*gfx;
+
+	gfx = allocate_graphics_struct();
+	if (!gfx)
+		return (0);
+	if (!setup_window_and_image(gfx))
+	{
+		free(gfx);
+		return (0);
+	}
+	gfx->map_data = map_data;
+	setup_hooks_and_run(gfx);
+	return (1);
 }
 
