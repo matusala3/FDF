@@ -6,7 +6,7 @@
 /*   By: magebreh <magebreh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 16:18:52 by magebreh          #+#    #+#             */
-/*   Updated: 2025/08/01 21:25:29 by magebreh         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:05:56 by magebreh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_map *allocate_map(int rows, int cols);
 int get_file_dimensions(char *filename, int *rows, int *cols);
 int fill_map_data(char *filename, t_map *map_data);
 int get_height_color(int z);
+int parse_height_color(char *str, int *z_value, int *color);
 
 //helper
 void free_partial_map(t_point **map, int allocated_rows);

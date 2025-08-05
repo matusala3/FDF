@@ -6,7 +6,7 @@
 /*   By: magebreh <magebreh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:53:04 by magebreh          #+#    #+#             */
-/*   Updated: 2025/07/11 19:15:57 by magebreh         ###   ########.fr       */
+/*   Updated: 2025/08/05 11:38:37 by magebreh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*ft_strjoin_free(char *s1, char const *s2)
 	{
 		free(s1);
 		return (NULL);
-	}	
+	}
 	res = ft_strjoin_core(s1, s2);
 	free(s1);
 	return (res);

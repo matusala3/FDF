@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   memory.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: magebreh <magebreh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/31 16:19:18 by magebreh          #+#    #+#             */
-/*   Updated: 2025/07/31 20:27:23 by magebreh         ###   ########.fr       */
+/*   Created: 2025/08/05 00:00:00 by magebreh          #+#    #+#             */
+/*   Updated: 2025/08/05 00:00:00 by magebreh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-
-int count_columns(char *line)
-{
-    char **split;
-    int count;
-    
-	split = ft_split(line, ' ');
-	count = 0;
-    while (split[count])
-        count++;
-    free_double_pointer(split);
-    return (count);
-};
 
 void free_partial_map(t_point **map, int allocated_rows)
 {
@@ -64,28 +51,6 @@ void cleanup_graphics(t_graphics *gfx)
             free_map(gfx->map_data);
         free(gfx);
     }
-}
-
-int handle_keypress(int keycode, t_graphics *gfx)
-{
-    ft_printf("Key pressed: %d\n", keycode);
-    
-    if (keycode == 65307)
-    {
-        ft_printf("ESC pressed - exiting\n");
-        cleanup_graphics(gfx);
-        exit(0);
-    }
-    
-    return (0);
-}
-
-int handle_close(t_graphics *gfx)
-{
-    ft_printf("Window close button pressed\n");
-    cleanup_graphics(gfx);
-    exit(0);
-    return (0);
 }
 
 void free_map(t_map *map_data)

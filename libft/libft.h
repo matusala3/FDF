@@ -6,7 +6,7 @@
 /*   By: magebreh <magebreh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:33:26 by magebreh          #+#    #+#             */
-/*   Updated: 2025/07/11 17:11:32 by magebreh         ###   ########.fr       */
+/*   Updated: 2025/08/04 21:06:24 by magebreh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-int		ft_atoi(char *str);
+int		ft_atoi_safe(const char *str, int *err);
+int		ft_atoi_hex(const char *str, int *err);
 void	ft_bzero(void *s, size_t n);
 int		ft_isalnum(int s);
 int		ft_isalpha(int s);

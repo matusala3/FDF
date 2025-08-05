@@ -11,7 +11,9 @@ MLX_DIR = minilibx-linux
 SRCS = $(SRC_DIR)/main.c \
 	   $(SRC_DIR)/draw.c \
        $(SRC_DIR)/parse.c \
-       $(SRC_DIR)/helper.c \
+       $(SRC_DIR)/memory.c \
+       $(SRC_DIR)/events.c \
+       $(SRC_DIR)/color.c \
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
