@@ -53,7 +53,7 @@ FDF is a 3D wireframe visualizer that transforms height map files (.fdf) into is
 - `t_map`: Contains `t_point **map` (2D grid), dimensions
 - `t_graphics`: MLX context, image buffer, direct pixel access
 - `t_point`: Grid coordinates (x,y), height (z), color
-- `t_screen_point`: 2D screen coordinates after projection
+- `t_spoint`: 2D screen coordinates after projection
 
 ### Coordinate Systems
 

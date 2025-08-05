@@ -12,24 +12,22 @@
 
 #include "../fdf.h"
 
-int handle_keypress(int keycode, t_graphics *gfx)
+int	handle_keypress(int keycode, t_graphics *gfx)
 {
-    ft_printf("Key pressed: %d\n", keycode);
-    
-    if (keycode == 65307)
-    {
-        ft_printf("ESC pressed - exiting\n");
-        cleanup_graphics(gfx);
-        exit(0);
-    }
-    
-    return (0);
+	ft_printf("Key pressed: %d\n", keycode);
+	if (keycode == 65307)
+	{
+		ft_printf("ESC pressed - exiting\n");
+		cleanup_graphics(gfx);
+		exit(0);
+	}
+	return (0);
 }
 
-int handle_close(t_graphics *gfx)
+int	handle_close(t_graphics *gfx)
 {
-    ft_printf("Window close button pressed\n");
-    cleanup_graphics(gfx);
-    exit(0);
-    return (0);
+	ft_printf("Window close button pressed\n");
+	cleanup_graphics(gfx);
+	exit(0);
+	return (0);
 }

@@ -9,7 +9,6 @@ LIBFT_DIR = libft
 MLX_DIR = minilibx-linux
 
 SRCS = $(SRC_DIR)/main.c \
-	   $(SRC_DIR)/draw.c \
        $(SRC_DIR)/parse.c \
        $(SRC_DIR)/assign.c \
        $(SRC_DIR)/memory.c \

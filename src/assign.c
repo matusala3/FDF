@@ -6,13 +6,13 @@
 /*   By: magebreh <magebreh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 13:15:56 by magebreh          #+#    #+#             */
-/*   Updated: 2025/08/05 14:30:59 by magebreh         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:57:54 by magebreh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static t_map	*init_map_structure(int rows, int cols)
+t_map	*init_map_structure(int rows, int cols)
 {
 	t_map	*map_data;
 
@@ -30,7 +30,7 @@ static t_map	*init_map_structure(int rows, int cols)
 	return (map_data);
 }
 
-static int	allocate_map_rows(t_map *map_data, int rows, int cols)
+int	allocate_map_rows(t_map *map_data, int rows, int cols)
 {
 	int	i;
 
@@ -49,19 +49,7 @@ static int	allocate_map_rows(t_map *map_data, int rows, int cols)
 	return (1);
 }
 
-t_map *allocate_map(int rows, int cols)
-{
-	t_map	*map_data;
-
-	map_data = init_map_structure(rows, cols);
-	if (!map_data)
-		return (NULL);
-	if (!allocate_map_rows(map_data, rows, cols))
-		return (NULL);
-	return (map_data);
-}
-
-static int	process_line_data(char **split_line, t_map *map_data, int row)
+int	process_line_data(char **split_line, t_map *map_data, int row)
 {
 	int	col;
 	int	z_value;
@@ -81,7 +69,7 @@ static int	process_line_data(char **split_line, t_map *map_data, int row)
 	return (1);
 }
 
-static int	process_single_line(char *line, t_map *map_data, int row)
+int	process_single_line(char *line, t_map *map_data, int row)
 {
 	char	**split_line;
 	int		result;
@@ -99,7 +87,7 @@ static int	process_single_line(char *line, t_map *map_data, int row)
 	return (1);
 }
 
-int fill_map_data(char *filename, t_map *map_data)
+int	fill_map_data(char *filename, t_map *map_data)
 {
 	int		fd;
 	char	*line;
@@ -109,7 +97,8 @@ int fill_map_data(char *filename, t_map *map_data)
 	if (fd < 0)
 		return (0);
 	row = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
@@ -121,6 +110,7 @@ int fill_map_data(char *filename, t_map *map_data)
 		}
 		row++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (1);
