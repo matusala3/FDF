@@ -6,7 +6,7 @@
 /*   By: magebreh <magebreh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 13:15:56 by magebreh          #+#    #+#             */
-/*   Updated: 2025/08/05 13:20:15 by magebreh         ###   ########.fr       */
+/*   Updated: 2025/08/05 14:30:59 by magebreh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int fill_map_data(char *filename, t_map *map_data)
 	row = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
 		if (!process_single_line(line, map_data, row))
 		{
 			free(line);

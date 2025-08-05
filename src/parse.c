@@ -6,7 +6,7 @@
 /*   By: magebreh <magebreh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:36:25 by magebreh          #+#    #+#             */
-/*   Updated: 2025/08/05 13:20:30 by magebreh         ###   ########.fr       */
+/*   Updated: 2025/08/05 14:32:13 by magebreh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int get_file_dimensions(char *filename, int *rows, int *cols)
     *rows = 0;
     while ((line = get_next_line(fd)) != NULL)
     {
+        if (line[ft_strlen(line) - 1] == '\n')
+            line[ft_strlen(line) - 1] = '\0';
         current_cols = count_columns(line);
-        
         if (*rows == 0)
             *cols = current_cols;
         else if (current_cols != *cols)
@@ -68,19 +69,23 @@ int get_file_dimensions(char *filename, int *rows, int *cols)
     return (1);
 }
 
-
-
 int count_columns(char *line)
 {
     char **split;
     int count;
+    int i;
     
 	split = ft_split(line, ' ');
 	if (!split)
 		return (0);
 	count = 0;
-    while (split[count])
-        count++;
+    i = 0;
+    while (split[i])
+    {
+        if (split[i][0] != '\0')
+            count++;
+        i++;
+    }
     free_double_pointer(split);
     return (count);
 }
